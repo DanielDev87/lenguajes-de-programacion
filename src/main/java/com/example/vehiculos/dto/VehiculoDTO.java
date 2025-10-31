@@ -18,13 +18,16 @@ public class VehiculoDTO {
     @NotNull(message = "El año es obligatorio")
     private Integer anio;
 
+    private String imagenUrl;
+
     public VehiculoDTO() {}
 
-    public VehiculoDTO(Long id, String marca, String modelo, Integer anio) {
+    public VehiculoDTO(Long id, String marca, String modelo, Integer anio, String imagenUrl) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
+        this.imagenUrl = imagenUrl;
     }
 
     public Long getId() { return id; }
@@ -38,4 +41,7 @@ public class VehiculoDTO {
 
     public Integer getAnio() { return anio; }
     public void setAnio(Integer anio) { this.anio = anio; }
+
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
 }
