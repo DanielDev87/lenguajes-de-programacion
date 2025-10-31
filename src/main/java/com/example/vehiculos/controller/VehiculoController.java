@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,8 +23,12 @@ public class VehiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<VehiculoDTO> crear(@Valid @RequestBody VehiculoDTO dto) {
-        return ResponseEntity.ok(service.guardar(dto));
+    public ResponseEntity<VehiculoDTO> crear(
+            @RequestPart("vehiculo") @Valid VehiculoDTO dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
+        
+        // Ya no usamos @RequestBody, sino @RequestPart para datos "multipart"
+        return ResponseEntity.ok(service.guardar(dto, imagen));
     }
 
     @GetMapping("/{id}")
@@ -32,8 +37,12 @@ public class VehiculoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehiculoDTO> actualizar(@PathVariable Long id, @Valid @RequestBody VehiculoDTO dto) {
-        return ResponseEntity.ok(service.actualizar(id, dto));
+    public ResponseEntity<VehiculoDTO> actualizar(
+            @PathVariable Long id, 
+            @RequestPart("vehiculo") @Valid VehiculoDTO dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
+        
+        return ResponseEntity.ok(service.actualizar(id, dto, imagen));
     }
 
     @DeleteMapping("/{id}")

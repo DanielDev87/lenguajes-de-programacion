@@ -24,6 +24,8 @@ public class Vehiculo {
     @NotNull(message = "El año es obligatorio")
     private Integer anio;
 
+    private String imagenUrl;
+
     public Vehiculo() {}
 
     public Vehiculo(String marca, String modelo, Integer anio) {
@@ -43,4 +45,8 @@ public class Vehiculo {
 
     public Integer getAnio() { return anio; }
     public void setAnio(Integer anio) { this.anio = anio; }
+
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
 }
+

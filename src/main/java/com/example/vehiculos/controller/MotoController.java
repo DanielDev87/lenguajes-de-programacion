@@ -1,11 +1,13 @@
 package com.example.vehiculos.controller;
 
 import com.example.vehiculos.dto.MotoDTO;
+import com.example.vehiculos.dto.VehiculoDTO;
 import com.example.vehiculos.service.MotoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,8 +24,12 @@ public class MotoController {
     }
 
     @PostMapping
-    public ResponseEntity<MotoDTO> crear(@Valid @RequestBody MotoDTO dto) {
-        return ResponseEntity.ok(service.guardar(dto));
+    public ResponseEntity<MotoDTO> crear(
+            @RequestPart("moto") @Valid MotoDTO dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
+        
+        // Ya no usamos @RequestBody, sino @RequestPart para datos "multipart"
+        return ResponseEntity.ok(service.guardar(dto, imagen));
     }
 
     @GetMapping("/{id}")
@@ -32,8 +38,12 @@ public class MotoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MotoDTO> actualizar(@PathVariable Long id, @Valid @RequestBody MotoDTO dto) {
-        return ResponseEntity.ok(service.actualizar(id, dto));
+    public ResponseEntity<MotoDTO> actualizar(
+            @PathVariable Long id, 
+            @RequestPart("moto") @Valid MotoDTO dto,
+            @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
+        
+        return ResponseEntity.ok(service.actualizar(id, dto, imagen));
     }
 
     @DeleteMapping("/{id}")
